@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mda-cruz <mda-cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mda-cruz <mda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 18:25:38 by mda-cruz          #+#    #+#             */
-/*   Updated: 2022/05/23 16:42:31 by mda-cruz         ###   ########.fr       */
+/*   Updated: 2022/05/24 17:38:28 by mda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void		sort_three(t_list **stack_a);
 void		sort_stack(t_list **stack_a, t_list **stack_b);
 long		ft_i_min(t_list *stack);
 void		sort_medium(t_list **stack_a, t_list **stack_b);
-void		sort_large(t_list **stack_a, t_list **stack_b);
+void		sort_large(t_list **stack_a);
+long		is_stack_sorted(t_list *stack_a);
+t_list	    *sort_chunk(t_list **stack_a);
 
 #endif

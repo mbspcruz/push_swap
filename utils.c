@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mda-cruz <mda-cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mda-cruz <mda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 17:48:33 by mda-cruz          #+#    #+#             */
-/*   Updated: 2022/05/23 13:07:06 by mda-cruz         ###   ########.fr       */
+/*   Updated: 2022/05/24 13:31:17 by mda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	is_it_digit(char **av)
 {
-	int i;
-	int x;
+	int	i;
+	int	x;
 
 	i = 1;
 	while (av[i])
@@ -26,7 +26,7 @@ int	is_it_digit(char **av)
 		while (av[i][x])
 		{
 			if (!ft_isdigit(av[i][x]))
-				return 0;
+				return (0);
 			x++;
 		}
 		i++;
@@ -36,12 +36,12 @@ int	is_it_digit(char **av)
 
 int	is_duplicate(t_list *stack_a)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	while (stack_a)
 	{
 		tmp = stack_a->next;
-		while(tmp)
+		while (tmp)
 		{
 			if (stack_a->content == tmp->content)
 				return (1);
@@ -49,50 +49,53 @@ int	is_duplicate(t_list *stack_a)
 		}
 		stack_a = stack_a->next;
 	}
-	return 0;
+	return (0);
 }
 
-long		ft_lst_min_int(t_list *stack)
+long	ft_lst_min_int(t_list *stack)
 {
-	long min;
+	long	min;
 
 	min = (long)stack->content;
-	while(stack)
+	while (stack)
 	{
 		if ((long)stack->content < min)
 			min = (long)stack->content;
 		stack = stack->next;
 	}
-	return(min);
+	return (min);
 }
 
-long		ft_i_min (t_list *stack)
+long	ft_i_min(t_list *stack)
 {
-	long min;
-	long i = 0;
+	long	min;
+	long	i;
+	t_list	*tmp;
+
+	i = 0;
 	min = (long)stack->content;
-	t_list *tmp = stack;
-	while(tmp)
+	tmp = stack;
+	while (tmp)
 	{
 		if ((long)tmp->content < min)
 			min = (long)tmp->content;
 		tmp = tmp->next;
 	}
 	free(tmp);
-	while((long)stack->content != min)
+	while ((long)stack->content != min)
 	{
 		i++;
 		stack = stack->next;
 	}
-	return(i);
+	return (i);
 }
 
 long	ft_lst_max_int(t_list *stack)
 {
-	long max;
+	long	max;
 
 	max = (long)stack->content;
-	while(stack)
+	while (stack)
 	{
 		if ((long)stack->content > max)
 			max = (long)stack->content;
