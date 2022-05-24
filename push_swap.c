@@ -6,7 +6,7 @@
 /*   By: mda-cruz <mda-cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 18:25:04 by mda-cruz          #+#    #+#             */
-/*   Updated: 2022/05/23 19:33:44 by mda-cruz         ###   ########.fr       */
+/*   Updated: 2022/05/24 12:43:10 by mda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ void	sort_medium(t_list **stack_a, t_list **stack_b)
 
 void	sort_large(t_list **stack_a, t_list **stack_b)
 {
-	int	lst_size = ft_lstsize(stack_a) / 5;
-
+	int	lst_size = ft_lstsize(*stack_a) / 5;
+	int	mid = lst_size / 2;
+	
 
 }
 
