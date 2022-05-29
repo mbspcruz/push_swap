@@ -6,45 +6,40 @@
 #    By: mda-cruz <mda-cruz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/18 16:50:36 by mda-cruz          #+#    #+#              #
-#    Updated: 2022/05/18 19:11:53 by mda-cruz         ###   ########.fr        #
+#    Updated: 2022/05/29 15:26:36 by mda-cruz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+CC = gcc 
+
+FT_PRT = ft_printf/
+
+PRNT_A = ft_printf/libftprintf.a
+
+SRCS = $(wildcard *.c)
+
 NAME = push_swap
 
-HEADER = push_swap.h
+OBJS = $(SRCS:.c=.o)
 
-LIB_DIR = ft_printf/
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
-LIBFT_A = ft_printf/libftprintf.a
+%.o:%.c *.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
-CC = gcc
+all: *.h
+	@$(MAKE) $(NAME)
 
-CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
-
-SRC = $(wildcard *.c)
-
-DST = $(SRC:.c=.o)
-
-all: $(NAME)
-
-%.o :%.c
-	@$(CC) $(CFLAGS) -c -o $@ $<
-
-$(NAME): $(DST)
-	@make -C $(LIB_DIR)
-	@$(CC) $(CFLAGS) $(DST) $(LIBFT_A) -o $(NAME)
+$(NAME): $(OBJS)
+	@make -C $(FT_PRT)
+	$(CC) $(CFLAGS) $(OBJS) $(INC) $(PRNT_A) -o $(NAME)
 
 clean:
-	@rm -rf $(DST)
-	@make -C $(LIB_DIR) clean
+	rm -rf *.o
+	@make -C $(FT_PRT) clean
 
 fclean: clean
-	@rm -rf $(NAME)
-	@make -C $(LIB_DIR) fclean
+	rm -rf $(NAME)
+	make -C $(FT_PRT) clean
 
 re: fclean all
-
-.PHONY: all clean
-
-

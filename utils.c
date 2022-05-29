@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mda-cruz <mda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: mda-cruz <mda-cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 17:48:33 by mda-cruz          #+#    #+#             */
-/*   Updated: 2022/05/24 13:31:17 by mda-cruz         ###   ########.fr       */
+/*   Updated: 2022/05/28 17:40:53 by mda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,20 @@ long	ft_lst_min_int(t_list *stack)
 	return (min);
 }
 
+long	ft_lst_max_int(t_list *stack)
+{
+	long	max;
+
+	max = (long)stack->content;
+	while (stack)
+	{
+		if ((long)stack->content > max)
+			max = (long)stack->content;
+		stack = stack->next;
+	}
+	return (max);
+}
+
 long	ft_i_min(t_list *stack)
 {
 	long	min;
@@ -90,16 +104,60 @@ long	ft_i_min(t_list *stack)
 	return (i);
 }
 
-long	ft_lst_max_int(t_list *stack)
+long	ft_i_max(t_list *stack)
 {
 	long	max;
+	long	i;
+	t_list	*tmp;
 
+	i = 0;
 	max = (long)stack->content;
-	while (stack)
+	tmp = stack;
+	while (tmp)
 	{
-		if ((long)stack->content > max)
-			max = (long)stack->content;
+		if ((long)tmp->content > max)
+			max = (long)tmp->content;
+		tmp = tmp->next;
+	}
+	free(tmp);
+	while ((long)stack->content != max)
+	{
+		i++;
 		stack = stack->next;
 	}
-	return (max);
+	return (i);
+}
+
+t_list	*dup_stack(t_list *stack_a)
+{
+	t_list	*dup;
+	t_list	*tmp;
+
+	dup = 0;
+	while(stack_a)
+	{
+		tmp = ft_lstnew(stack_a->content);
+		if (!tmp)
+			return (0);
+		ft_lstadd_back(&dup, tmp);
+		stack_a = stack_a->next;
+	}
+	return (dup);
+}
+
+t_list	*reverse_dup_stack(t_list *stack_a)
+{
+	t_list	*dup;
+	t_list	*tmp;
+
+	dup = 0;
+	while(stack_a)
+	{
+		tmp = ft_lstnew(stack_a->content);
+		if (!tmp)
+			return (0);
+		ft_lstadd_front(&dup, tmp);
+		stack_a = stack_a->next;
+	}
+	return (dup);
 }
