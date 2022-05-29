@@ -22,7 +22,7 @@ NAME = push_swap
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 
 %.o:%.c *.h
 	$(CC) $(CFLAGS) -c $< -o $@

@@ -63,9 +63,17 @@ int	scan_top(t_list *stack_a, t_list *chunk, int start, int size)
 	t_list *tmp;
 	int i;
 	int s;
+	int bp = 0;
 
+	while(bp < start)
+	{
+		if (chunk->next != NULL)
+			chunk = chunk->next;
+		bp++;
+	}
+	
 	i = 0;
-	while(stack_a)
+	while(stack_a->next != NULL)
 	{
 		tmp = chunk;
 		s = start;
@@ -82,12 +90,12 @@ int	scan_top(t_list *stack_a, t_list *chunk, int start, int size)
 	return (0);
 }
 
-int	scan_bottom(t_list **stack_a, t_list *chunk, int start, int size)
+int	scan_bottom(t_list *stack_a, t_list *chunk, int start, int size)
 {
 	t_list *reverse_dup;
 	int i;
 	
-	reverse_dup = reverse_dup_stack(*stack_a);
+	reverse_dup = reverse_dup_stack(stack_a);
 	i = scan_top(reverse_dup, chunk, start, size);
 	return (i);
 }
@@ -102,21 +110,20 @@ void	sort_large(t_list **stack_a, t_list **stack_b)
 	int bp;
 	int start = 0;
 	int k = 0;
-	long max = 0;
+	int max = 0;
 	int i = 0;
-	int min;
 	
 	chunk = dup_stack(*stack_a);
 	sort_chunk(&chunk, cmp);
-	size = ft_lstsize(chunk) / 10;
+	size = ft_lstsize(*stack_a) / 5;
 	bp = size;
 	start = 0;
 
-	while(i < 10)
+	while(i < 5)
 	{
 		while (k < size)
 		{
-			hold_second = scan_bottom(stack_a, chunk, start, size);
+			hold_second = scan_bottom(*stack_a, chunk, start, size);
 			hold_first = scan_top(*stack_a, chunk, start, size);
 			if (hold_first <= hold_second)
 			{
@@ -125,6 +132,7 @@ void	sort_large(t_list **stack_a, t_list **stack_b)
 					ra_rb(stack_a, "ra");
 					hold_first--;
 				}
+				pa_pb(stack_a, stack_b, "pb");
 			}
 			else if (hold_first > hold_second)
 			{
@@ -133,29 +141,27 @@ void	sort_large(t_list **stack_a, t_list **stack_b)
 					rra_rrb(stack_a, "rra");
 					hold_second--;
 				}
+				pa_pb(stack_a, stack_b, "pb");
 			}
 			k++;
-		}
-		while(ft_lstsize(*stack_b) != size)
-		{
-			min = ft_i_min(*stack_a);
-			if (min == 0)
-				pa_pb(stack_a, stack_b, "pb");
-			else if(min == 1)
-				sa_sb(stack_a, "sa");
-			else if(min >= ft_lstsize(*stack_a) / 2)
-				rra_rrb(stack_a, "rra");
-			else if (max < ft_lstsize(*stack_a) / 2)
-				ra_rb(stack_a, "ra");
-		}
+		}	
+		i++;
 		start += bp;
 		size += bp;
-		i++;
 	}
-		while(ft_lstsize(*stack_b) > 0)
-		{
+	
+	while(ft_lstsize(*stack_b) != 0)
+	{
+		max = ft_i_max(*stack_b);
+		if (max == 0)
 			pa_pb(stack_b, stack_a, "pa");
-		}		
+		else if(max >= ft_lstsize(*stack_b) / 2)
+			rra_rrb(stack_b, "rrb");
+		else if (max < ft_lstsize(*stack_b) / 2)			
+			ra_rb(stack_b, "rb");
+		
+	}
+		
 }
 
 void	sort_stack(t_list **stack_a, t_list **stack_b)
@@ -183,7 +189,6 @@ int	main(int ac, char *av[])
 	if (ac <= 2)
 		error_exit("At least two numbers must be given!");
 	get_stack(ac - 1, av + 1, &stack_a);
-	//printf("%ld", (long)stack_a->content);
 	if (!is_stack_sorted(stack_a))
 		sort_stack(&stack_a, &stack_b);
 }
