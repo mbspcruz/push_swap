@@ -6,40 +6,33 @@
 /*   By: mda-cruz <mda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:44:21 by mda-cruz          #+#    #+#             */
-/*   Updated: 2022/05/24 13:31:40 by mda-cruz         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:54:09 by mda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// int	is_max(long n)
-// {
-// 	if (n > 2147483647 || n < -2147483648)
-// 		return (0);
-// 	return (1);
-// }
-
 void	get_stack(int len, char *av[], t_list **stack_a)
 {
-	t_list	*node;
-	long	tmp;
-	int		i;
+	t_list		*node;
+	long long	tmp;
+	int			i;
 
 	tmp = 0;
 	i = 0;
 	while (i < len)
 	{
 		tmp = ft_atoi(av[i]);
-		// if (!is_max(tmp))
-		// 	exit(EXIT_FAILURE);
+		if (tmp > INT_MAX || tmp < INT_MIN)
+			error_exit(1, stack_a, 0);
 		node = ft_lstnew((long *)tmp);
 		if (!node)
-			error_exit("Node creation failed!");
+			error_exit(1, stack_a, 0);
 		ft_lstadd_back(stack_a, node);
 		i++;
 	}
 	if (is_duplicate(*stack_a))
-		error_exit("No duplicate numbers!");
+		error_exit(1, stack_a, 0);
 }
 
 long	is_stack_sorted(t_list *stack_a)
@@ -56,8 +49,44 @@ long	is_stack_sorted(t_list *stack_a)
 	return (1);
 }
 
-void	error_exit(char *file)
+void	sort_stack(t_list **stack_a, t_list **stack_b)
 {
-	ft_printf("Error\n%s\n", file);
-	exit(EXIT_FAILURE);
+	int		lst_size;
+	t_list	*chunk;
+
+	lst_size = ft_lstsize(*stack_a);
+	if (lst_size <= 3)
+		sort_small(stack_a);
+	else if (lst_size <= 25)
+		sort_medium(stack_a, stack_b);
+	else if (lst_size <= 100)
+	{
+		chunk = dup_stack(*stack_a);
+		sort_chunk(&chunk, cmp);
+		sort_large(stack_a, stack_b, chunk);
+	}
+	else if (lst_size <= 500)
+	{
+		chunk = dup_stack(*stack_a);
+		sort_chunk(&chunk, cmp);
+		sort_super_large(stack_a, stack_b, chunk);
+	}
 }
+
+t_list	*dup_stack(t_list *stack_a)
+{
+	t_list	*dup;
+	t_list	*tmp;
+
+	dup = 0;
+	while (stack_a)
+	{
+		tmp = ft_lstnew(stack_a->content);
+		if (!tmp)
+			return (0);
+		ft_lstadd_back(&dup, tmp);
+		stack_a = stack_a->next;
+	}
+	return (dup);
+}
+

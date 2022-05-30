@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mda-cruz <mda-cruz@student.42.fr>          +#+  +:+       +#+         #
+#    By: mda-cruz <mda-cruz@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/18 16:50:36 by mda-cruz          #+#    #+#              #
-#    Updated: 2022/05/29 15:26:36 by mda-cruz         ###   ########.fr        #
+#    Updated: 2022/05/30 15:19:07 by mda-cruz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME = push_swap
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 %.o:%.c *.h
 	$(CC) $(CFLAGS) -c $< -o $@

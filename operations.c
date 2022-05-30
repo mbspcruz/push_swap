@@ -6,7 +6,7 @@
 /*   By: mda-cruz <mda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:45:48 by mda-cruz          #+#    #+#             */
-/*   Updated: 2022/05/24 13:30:58 by mda-cruz         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:30:22 by mda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sa_sb(t_list **stack, char *op)
 	(*stack)->next = tmp->next;
 	tmp->next = *stack;
 	*stack = tmp;
-	printf("%s\n", op);
+	ft_printf("%s\n", op);
 }
 
 void	pa_pb(t_list **stack_a, t_list **stack_b, char *op)
@@ -36,7 +36,7 @@ void	pa_pb(t_list **stack_a, t_list **stack_b, char *op)
 		*stack_b = *stack_a;
 		*stack_a = tmp;
 	}
-	printf("%s\n", op);
+	ft_printf("%s\n", op);
 }
 
 void	ra_rb(t_list **stack, char *op)
@@ -47,7 +47,7 @@ void	ra_rb(t_list **stack, char *op)
 	*stack = tmp->next;
 	tmp->next = 0;
 	ft_lstadd_back(stack, tmp);
-	printf("%s\n", op);
+	ft_printf("%s\n", op);
 }
 
 void	rra_rrb(t_list **stack, char *op)
@@ -61,5 +61,5 @@ void	rra_rrb(t_list **stack, char *op)
 	last_node = tmp->next;
 	tmp->next = 0;
 	ft_lstadd_front(stack, last_node);
-	printf("%s\n", op);
+	ft_printf("%s\n", op);
 }

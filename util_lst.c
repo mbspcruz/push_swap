@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util_lst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mda-cruz <mda-cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mda-cruz <mda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 15:53:20 by mda-cruz          #+#    #+#             */
-/*   Updated: 2022/05/25 15:54:51 by mda-cruz         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:15:05 by mda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,32 @@ void	sort_chunk(t_list **dup, int (*cmp)(int, int))
 		a = a->next;
 	}
 }
+
+long	ft_lst_min_int(t_list *stack)
+{
+	long	min;
+
+	min = (long)stack->content;
+	while (stack)
+	{
+		if ((long)stack->content < min)
+			min = (long)stack->content;
+		stack = stack->next;
+	}
+	return (min);
+}
+
+long	ft_lst_max_int(t_list *stack)
+{
+	long	max;
+
+	max = (long)stack->content;
+	while (stack)
+	{
+		if ((long)stack->content > max)
+			max = (long)stack->content;
+		stack = stack->next;
+	}
+	return (max);
+}
+
