@@ -6,10 +6,12 @@
 /*   By: mda-cruz <mda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 17:48:33 by mda-cruz          #+#    #+#             */
-/*   Updated: 2022/05/30 18:45:58 by mda-cruz         ###   ########.fr       */
+/*   Updated: 2022/09/18 12:33:07 by mda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+//hnjrkhfgrtj 
 #include "push_swap.h"
 
 int	is_it_digit(char **av)
